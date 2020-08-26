@@ -33,7 +33,7 @@
         <td><strong>{{ info.public_repos + info.followers + info.following + info.public_gists}}</strong></td>
       </tr>
     </table>
-    <p>The result of our request: {{ info }}</p>
+    <!--<p>The result of our request: {{ info }}</p>-->
   </div>
 </template>
 
