@@ -81,8 +81,4 @@ li {
 a {
   color: #42b983;
 }
-table {
-  align-content: center;
-  horiz-align: center;
-}
 </style>
