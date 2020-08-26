@@ -2,7 +2,6 @@
   <div class="hello">
     <h1>{{ msg }}</h1>
     <table>
-      <h2>Player 1</h2>
       <tr>
         <td>Username: </td>
         <td>{{ info.login }}</td>
