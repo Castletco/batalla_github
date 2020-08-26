@@ -1,6 +1,7 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
+    <h2>Player 1</h2>
     <table>
       <tr>
         <td>Username: </td>
