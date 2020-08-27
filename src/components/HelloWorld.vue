@@ -1,61 +1,31 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    <h2>Player 1</h2>
-    <table>
-      <tr>
-        <td>Username: </td>
-        <td>{{ info.login }}</td>
-      </tr>
-
-      <tr>
-        <td>Public repositories: </td>
-        <td>{{ info.public_repos }}</td>
-      </tr>
-
-      <tr>
-        <td>Number of followers: </td>
-        <td>{{ info.followers }}</td>
-      </tr>
-
-      <tr>
-        <td>Number Following: </td>
-        <td>{{ info.following }}</td>
-      </tr>
-
-      <tr>
-        <td>Public Gists: </td>
-        <td>{{ info.public_gists }}</td>
-      </tr>
-
-      <tr>
-        <td><strong>Total Score: </strong></td>
-        <td><strong>{{ info.public_repos + info.followers + info.following + info.public_gists}}</strong></td>
-      </tr>
-    </table>
-    <!--<p>The result of our request: {{ info }}</p>-->
+    <p>Look up by id: <input v-model="id" /><button @click="updateResults">Search</button></p>
+    <p>The result of our request: {{ info.firmness }}</p>
+    <p>The result of our request: {{ info.flavors }}</p>
   </div>
 </template>
 
 <script>
 export default {
   name: 'HelloWorld',
-  props: {
-    msg: String
-  },
   data() {
     return {
-      info: null
-    }
+      info: null,
+      id: 42,     // added this, setting 42 as the default value
+    };
   },
   mounted() {
     this.getBerryData();
   },
   methods: {
+    updateResults() {
+      this.getBerryData();
+    },
     async getBerryData() {
       try {
-        let response = await this.$http.get("https://api.github.com/users/Castletco");
-        this.info = response.data;      // a lot more information comes back in the response, so for now we only want the actual data of the response
+        let response = await this.$http.get(`https://pokeapi.co/api/v2/berry/${this.id}`);  // instead of hardcoding a value, let's use whatever has been typed in the input box
+        this.info = response.data;
       }
       catch(error) {
         console.log(`Something went wrong: ${error}`);
