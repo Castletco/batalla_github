@@ -43,7 +43,6 @@
     </b-card>
   </div>
 </template>
-<!-- prueba -->
 <script>
 export default {
   name: 'HelloWorld',
