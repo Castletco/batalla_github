@@ -1,8 +1,43 @@
 <template>
   <div class="hello">
-    <p>Look up by id: <input v-model="id" /><button @click="updateResults">Search</button></p>
-    <p>The result of our request: {{ info.firmness }}</p>
-    <p>The result of our request: {{ info.flavors }}</p>
+    <b-card
+      title="Player 1"
+      tag="article"
+      style="max-width: 20rem;"
+      class="mb-2"
+    >
+      <b-input-group>
+        <template v-slot:prepend>
+          <b-input-group-text >Username</b-input-group-text>
+        </template>
+        <b-form-input v-model="userName"></b-form-input>
+        <b-input-group-append>
+          <b-button size="sm" text="Button" variant="success" @click="updateResults">Go</b-button>
+        </b-input-group-append>
+      </b-input-group>
+      <b-list-group>
+        <b-list-group-item class="d-flex justify-content-between align-items-center">
+          Public Repositories:
+          <b-badge variant="primary" pill>{{info.public_repos}}</b-badge>
+        </b-list-group-item>
+        <b-list-group-item class="d-flex justify-content-between align-items-center">
+          Numbers of Followers:
+          <b-badge variant="primary" pill>{{info.followers}}</b-badge>
+        </b-list-group-item>
+        <b-list-group-item class="d-flex justify-content-between align-items-center">
+          Numbers of Following:
+          <b-badge variant="primary" pill>{{info.following}}</b-badge>
+        </b-list-group-item>
+        <b-list-group-item class="d-flex justify-content-between align-items-center">
+          Public Gists:
+          <b-badge variant="primary" pill>{{info.public_gists}}</b-badge>
+        </b-list-group-item>
+        <b-list-group-item class="d-flex justify-content-between align-items-center">
+          Total Score:
+          <b-badge variant="primary" pill>{{info.public_repos + info.followers + info.following + info.public_gists}}</b-badge>
+        </b-list-group-item>
+      </b-list-group>
+    </b-card>
   </div>
 </template>
 
@@ -12,19 +47,20 @@ export default {
   data() {
     return {
       info: null,
-      id: 42,     // added this, setting 42 as the default value
+      userName: null,     // added this, setting 42 as the default value
     };
   },
   mounted() {
-    this.getBerryData();
+    this.getUserData();
   },
   methods: {
     updateResults() {
-      this.getBerryData();
+      console.log("username:" + this.userName)
+      this.getUserData();
     },
-    async getBerryData() {
+    async getUserData() {
       try {
-        let response = await this.$http.get(`https://pokeapi.co/api/v2/berry/${this.id}`);  // instead of hardcoding a value, let's use whatever has been typed in the input box
+        let response = await this.$http.get(`https://api.github.com/users/${this.userName}`);  // instead of hardcoding a value, let's use whatever has been typed in the input box
         this.info = response.data;
       }
       catch(error) {
