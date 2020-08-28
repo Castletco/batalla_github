@@ -2,6 +2,9 @@
   <div class="hello">
     <b-card
       title="Player 1"
+      :img-src="valorImg"
+      img-alt="Image"
+      img-top
       tag="article"
       style="max-width: 20rem;"
       class="mb-2"
@@ -47,7 +50,8 @@ export default {
   data() {
     return {
       info: null,
-      userName: null,     // added this, setting 42 as the default value
+      userName: null,
+      valorImg: null,
     };
   },
   mounted() {
@@ -61,6 +65,7 @@ export default {
     async getUserData() {
       try {
         let response = await this.$http.get(`https://api.github.com/users/${this.userName}`);  // instead of hardcoding a value, let's use whatever has been typed in the input box
+        this.valorImg = response.data.avatar_url
         this.info = response.data;
       }
       catch(error) {
