@@ -36,7 +36,7 @@
           <b-badge variant="primary" pill>{{info.public_gists}}</b-badge>
         </b-list-group-item>
         <b-list-group-item class="d-flex justify-content-between align-items-center">
-          Total Score:
+          Total Score 1:
           <b-badge variant="primary" pill>{{info.public_repos + info.followers + info.following + info.public_gists}}</b-badge>
         </b-list-group-item>
       </b-list-group>
