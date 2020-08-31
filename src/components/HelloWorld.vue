@@ -1,5 +1,10 @@
 <template>
   <div class="hello">
+    <p>Look up by id: <input v-model="id" /><button @click="updateResults">Search</button></p>
+    <img src="@/assets/loading.gif" v-if="isLoading" />
+    <p v-if="info && !isLoading">The result of our request: {{ info }}</p>
+  </div>
+  <!--<div class="hello">
     <b-card
       title="Player 1"
       :img-src="valorImg"
@@ -41,10 +46,10 @@
         </b-list-group-item>
       </b-list-group>
     </b-card>
-  </div>
+  </div>-->
 </template>
 <script>
-export default {
+/*export default {
   name: 'HelloWorld',
   data() {
     return {
@@ -69,6 +74,48 @@ export default {
       }
       catch(error) {
         console.log(`Something went wrong: ${error}`);
+      }
+    }
+  }
+}*/
+export default {
+  name: 'HelloWorld',
+  data() {
+    return {
+      info: null,
+      id: 42,
+      isLoading: false    // it's not loading initially
+    };
+  },
+  mounted() {
+    this.getBerryData();
+  },
+  methods: {
+    updateResults() {
+      this.getBerryData();
+    },
+    async getBerryData() {
+      try {
+        this.isLoading = true;      // we're about to start the call, so that means we're loading
+        let response = await this.$http.get(`https://pokeapi.co/api/v2/berry/${this.id}`);
+        this.info = response.data;
+        this.isLoading = false;     // since this is after the await, we've completed the loading
+      }
+      catch(error) {
+        console.log(`Something went wrong: ${error}`);
+        this.isLoading = false;     // we'll still want this regardless
+        if (error.response) {
+          // here, you may want to drill even further to handle 400 and 500 level errors differently
+          console.log(error.response);
+        }
+        else if (error.request) {
+          // this will only be reached if the request didn't ever receive a response
+          console.log(error.request);
+        }
+        else {
+          // something in the setup of the request triggered an error
+          console.log(error.message);
+        }
       }
     }
   }
