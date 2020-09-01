@@ -142,9 +142,11 @@ export default {
     },
     battle() {
       if (this.totalscore1 > this.totalscore2) {
-        alert ("el ganador es: " + this.userName);
+        //alert ("el ganador es: " + this.userName);
+        this.$router.push({ name: 'Result', params: {ganador: this.userName}});
       } else {
-        alert ("el ganador es: " + this.userName2);
+        //alert ("el ganador es: " + this.userName2);
+        this.$router.push({ name: 'Result', params: {ganador: this.userName2}});
       }
     }
   }
